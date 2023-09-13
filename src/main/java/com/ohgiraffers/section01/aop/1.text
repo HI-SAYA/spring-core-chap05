@@ -1,0 +1,34 @@
+AOP(Aspect Oriented Programming) -> OOP(객체 지향 프로그래밍)
+중복되는 공통 코드를 분리하고 코드 실행 전이나 후의 시점에 해당 코드를 삽입함
+-> 소드 코드의 중복을 줄이고 필요할 때마다 가져다 쓸 수 있게 객체화하는 기술
+
+핵심 관점 (인증/인가)
+- 로그인 서비스, 검색 서비스, 게시판 서비스
+- Logging -> Security -> 트랜잭션
+관점 처리를 할 때마다 코드가 중복되는 것은 불필요하기 때문에 별도로 분리한다.
+
+
+spring에 경우 aop는 메소드 호출하는 시점이 advice가 적용될 수 있다.
+
+Aspect - 핵심 비즈니스 로직과 별도로 수행되는 횡단 관심사 (advice + pointcut)
+부가코드(Advice) - Aspect 기능 자체 - * 부가기능 코드
+Join point - advice가 적용되는 위치
+Pointcut - join point 중에서 advice가 적용될 가능성 있는 부분을 선별한 것
+Weaving - advice를 핵심 비지니스 로직에 적용하는 것
+
+
+
+Advice의 종류
+어떠한 메소드 호출 시점부터 1.이전 시점, 2.이후 시점(3.+정상 수행된 시점), 4.예외가 발생한 시점에 어드바이스 작성
+
+Before
+(After-returnig, After-throwing) -> After
+Around
+
+
+
+Spring에서는 메서드 조인 포인트만 제공 : 핵심기능(대상 객체)의 메소드가 호출되는 런타임 시점에만 부가기능(Advice)을 적용
+
+프록시 기반의 AOP 구현체
+=> 메소드 - pointCut -advice(before) - Traget Object - pointCut - advice(after)
+=> Traget Object와 advice를 감싸고 있는 proxy라는 대리인이 대신 호출 받아서 전처리-기능수행-후처리 해준다.
